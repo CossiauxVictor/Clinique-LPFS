@@ -1,196 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <!-- META -->
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cossiaux victor</title>
-    <link rel="icon" type="image/png" href="image/Logo blanc.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <style>
-        #textEffect {
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 2px solid #000; /* Ajustez la couleur de la bordure selon vos besoins */
-            font-size: 250%;
-        }
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: #f7fafc; /* Gris clair pour le header */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre sous le header */
-        }
 
+    <!-- LINKS -->
+    <link rel="stylesheet" href="src/css/style.css">
 
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 8px;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 8px;
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-
-        
-
-
-
-
-
-
-
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const textElement = document.getElementById('textEffect');
-            const textContent = 'Comment aller vous ?'; // Remplacez par le texte que vous souhaitez afficher
-
-            function typeWriter(text, i, cb) {
-                if (i < text.length) {
-                    textElement.innerHTML += text.charAt(i);
-                    setTimeout(function () {
-                        typeWriter(text, i + 1, cb);
-                    }, 75); // Ajustez la vitesse d'écriture ici (en millisecondes)
-                } else {
-                    setTimeout(cb, 1000); // Temps d'attente avant de commencer à supprimer
-                }
-            }
-
-            function deleteText(cb) {
-                const currentText = textElement.innerHTML;
-                if (currentText.length > 0) {
-                    textElement.innerHTML = currentText.slice(0, -1);
-                    setTimeout(function () {
-                        deleteText(cb);
-                    }, 75); // Ajustez la vitesse de suppression ici (en millisecondes)
-                } else {
-                    cb();
-                }
-            }
-
-            function startTextAnimation() {
-                typeWriter(textContent, 0, function () {
-                    deleteText(startTextAnimation);
-                });
-            }
-
-            startTextAnimation();
-        });
-
-        
-    </script>
+    <!-- TITLE -->
+    <title> Formulaire de connexion </title>
 </head>
-<body class="bg-gray-200">
-
-
-    <header class="bg-gray-100 p-4 flex justify-between items-center transition-all duration-300 ease-in-out transform">
-        <!-- Logo à gauche avec un lien vers la page d'accueil -->
-        <a href="index.html" class="text-gray-800 hover:text-blue-500 transition duration-300 transform hover:scale-110">
-            <img src="image/Logo.png" alt="Logo" class="h-10">
-        </a>
-    
-        <!-- Liens à droite -->
-        <nav class="flex items-center space-x-4">
-            <a href="index.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Accueil</a>
-            <a href="etude.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Études</a>
-            <a href="experience.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Expériences</a>
-            <a href="competence.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Compétences</a>
-            <a href="projet.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Projets</a>
-            <a href="veille.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Veille</a>
-        </nav>
-    </header>
-    
-    
-
-    <div class="relative h-screen bg-gray-800 flex items-center">
-
-        <!-- Image en arrière-plan -->
-        <div class="absolute inset-0">
-            <img class="w-full h-full object-cover" src="image/index/Fond.png" alt="Image 2">
-        </div>
-        <div class="relative z-10 ml-auto mr-auto text-center text-white">
-            <h1 class="text-6xl font-bold">Bonjour, je suis Victor Cossiaux</h1>
-            <div id="textEffect"></div>
-        </div>
+<body>
+    <!-- FORMULAIRE DE CONNEXION -->
+    <div class="formulaire_inscription">
+        <form method="post" class="inscription"> 
+            <h1> Connexion </h1>
+            <h2> Bienvenue sur notre application de la Clinique LPFS ! </h2> 
+            <p> Connecter vous sur notre application !</p>
+            <br>
+            <img src="src/img/LPFS_logo.png" alt="logo clinique LPFS">
+            <br>
+            <br>
+            <a href="connexion.php"> Connexion</a>
+        </form>
     </div>
-
-
- <br>
- <div class="flex justify-center">
-    <div class="bg-white rounded-lg p-6 sm:w-4/5">
-        
-        <a href="Document/CV.pdf" download="CV-Cossiaux_Victor" class="mx-auto w-3/4 bg-white text-gray-800 font-bold py-2 px-4 rounded border border-gray-800 hover:bg-gray-800 hover:text-white hover:border-white transition duration-300 ease-in-out flex items-center justify-center">
-            Télécharger mon CV
-        </a>
-        <br>
-        <div class="container mx-auto flex flex-wrap items-center">
-            <div class="w-full md:w-8/12 md:pr-8">
-                <p class="text-left">Moi, je vais bien merci ! <br>
-                    Actuellement en deuxième année de BTS SIO (Services Informatiques aux Organisations) avec une spécialisation en SLAM (Solutions Logicielles et Applications Métiers), je suis un passionné d'informatique de longue date. À 21 ans, originaire du charmant village de Gouzeaucourt, j'ai grandi en cultivant ma curiosité pour les technologies et en développant des compétences dans le domaine.
-                    <br><br>
-                    Mon ambition ultime est de devenir Chef de Projet, guidant la création de sites Web et d'applications. Mon objectif est de gérer de manière efficace les aspects techniques, de résoudre les problèmes, de coordonner les équipes et d'offrir une expérience client exceptionnelle, aidant chaque individu à trouver la perfection pour son site.
-                    <br><br>
-                    Au-delà de mon engagement envers l'informatique, je suis également un passionné de sports, notamment le volleyball et le basketball. Ces activités ne sont pas seulement un moyen de rester en forme, mais aussi une source d'inspiration pour la collaboration et la persévérance, des qualités que je souhaite intégrer dans ma future carrière de Chef de Projet.
-                    <br><br>
-                    Cependant, ma soif de découverte ne se limite pas aux écrans et aux terrains de sport. J'adore explorer de nouvelles cultures et paysages, ce qui m'a conduit à développer une passion pour les voyages. Voyager, c'est pour moi bien plus qu'une simple aventure ; c'est une occasion d'élargir mes horizons, d'apprendre de nouvelles perspectives et d'apprécier la diversité qui enrichit notre monde.
-                    <br><br>
-                    Ainsi, entre lignes de code, jeux sur le terrain et découvertes culturelles, je trace ma route avec détermination vers un avenir où je pourrai concilier ma passion pour l'informatique, mon leadership en gestion de projets, et mon amour pour la diversité du monde qui nous entoure.
-                </p>
-            </div>
-            <div class="w-full md:w-4/12 mt-4 md:mt-0">
-                <img src="image/Photo profil.jpg" class="mx-auto rounded-md" alt="Photo de profil">
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-    
-
-<br>
-    <footer class="bg-gray-800 text-white p-4">
-        <div class="container mx-auto flex justify-between">
-            <!-- Onglet Contacts -->
-            <div class="flex items-center space-x-4">
-                <!-- Image GitHub -->
-                <a href="https://github.com/CossiauxVictor" target="_blank">
-                    <img src="image/Github.png" alt="GitHub" class="h-6 w-6 hover:opacity-75">
-                </a>
-    
-                <!-- Image LinkedIn -->
-                <a href="https://www.linkedin.com/in/cossiaux-victor/" target="_blank">
-                    <img src="image/Linkdin.png" alt="LinkedIn" class="h-6 w-6 hover:opacity-75">
-                </a>
-    
-                <!-- E-mail -->
-                <a href="mailto:victor.cossiaux.p@gmail.com" class="hover:opacity-75">victor.cossiaux.p@gmail.com</a>
-            </div>
-    
-            <!-- Onglet Mentions Légales -->
-            <div>
-                <a href="mentions-legales.html" class="hover:opacity-75">Mentions Légales</a>
-            </div>
-        </div>
-    </footer>
-    
 </body>
 </html>
+
+
