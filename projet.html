@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        #textEffect {
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #000; /* Ajustez la couleur de la bordure selon vos besoins */
+            font-size: 250%;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #f7fafc; /* Gris clair pour le header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre sous le header */
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 8px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 8px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gray-100 p-4 flex justify-between items-center transition-all duration-300 ease-in-out transform">
+        <!-- Logo à gauche avec un lien vers la page d'accueil -->
+        <a href="index.html" class="text-gray-800 hover:text-blue-500 transition duration-300 transform hover:scale-110">
+            <img src="image/Logo.png" alt="Logo" class="h-10">
+        </a>
+    
+        <!-- Liens à droite -->
+        <nav class="flex items-center space-x-4">
+            <a href="index.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Accueil</a>
+            <a href="etude.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Études</a>
+            <a href="experience.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Expériences</a>
+            <a href="competence.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Compétences</a>
+            <a href="projet.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Projets</a>
+            <a href="veille.html" class="text-gray-800 hover:transition duration-300 transform hover:scale-110">Veille</a>
+        </nav>
+    </header>
+
+    <div class="bg-gray-100 p-6">
+        <div id="app" class="w-2/3 mx-auto mt-32">
+            
+            <!-- Menu des onglets -->
+            <div class="flex justify-center mb-6">
+                <button class="mr-1 px-4 py-2 bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-300"
+                    @click="currentTab = 'projetSeul'">Projets seul</button>
+                <button class="mr-1 px-4 py-2 bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-300"
+                    @click="currentTab = 'projetGroupe'">Projets en groupe</button>
+                <button class="px-4 py-2 bg-gray-200 rounded-lg focus:outline-none focus:bg-gray-300"
+                    @click="currentTab = 'projetFutur'">Projets futur</button>
+            </div>
+    
+            <!-- Contenu des onglets -->
+            <div>
+                <div v-if="currentTab === 'projetSeul'">
+                    <div class="grid grid-cols-1 gap-4">
+                        <h2 class='text-gray-500 text-xl font-bold'>Projet Seul :</h2>
+                        <div v-for="projet in projetsSeuls" :key="projet.id" class="bg-white rounded-lg shadow-lg p-4 w-full" @click="afficherDescription(projet.id)">
+                            <h3 class="font-semibold text-lg">{{ projet.titre }}</h3>
+                            <p v-if="projetSelectionneId === projet.id" v-html="projet.description"></p>
+                            <div class="text-4xl text-center text-gray-500">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else-if="currentTab === 'projetGroupe'">
+                    <h2 class='text-gray-500 text-xl font-bold'>Projet Groupe :</h2>
+                    <br>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div v-for="projet in projetsGroupe" :key="projet.id" class="bg-white rounded-lg shadow-lg p-4 w-full" @click="afficherDescription(projet.id)">
+                            <h3 class="font-semibold text-lg">{{ projet.titre }}</h3>
+                            <p v-if="projetSelectionneId === projet.id">{{ projet.description }}</p>
+                            <div class="text-4xl text-center text-gray-500">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <h2 class='text-gray-500 text-xl font-bold'>Projet Future :</h2>
+                    <br>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div v-for="projet in projetsFuturs" :key="projet.id" class="bg-white rounded-lg shadow-lg p-4 w-full" @click="afficherDescription(projet.id)">
+                            <h3 class="font-semibold text-lg">{{ projet.titre }}</h3>
+                            <p v-if="projetSelectionneId === projet.id">{{ projet.description }}</p>
+                            <div class="text-4xl text-center text-gray-500">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    currentTab: 'projetSeul', // Onglet actuellement sélectionné
+                    projetsSeuls: [
+                        {
+                            id: 1,
+                            titre: 'Job-In/Job-Out',
+                            description: '<br>🚀 Description du Projet :<br><br>"Job In/Out" a révolutionné notre approche de la production avec des réunions pré et post-production, appelées Job In et Job Out. Ces rencontres stratégiques anticipent les défis, réfléchissent aux actions avant les imprévus et trouvent des solutions pour les futurs cycles.<br><br><br>👨‍💻 Mon Rôle :<br><br>Membre de l\'équipe amélioration continue, j\'ai numérisé le processus via une base de données et une application web (HTML/PHP/JS), garantissant une accessibilité maximale.<br><br><br>📅 Chronologie du Projet :<br><br>- 5 Semaines (Stage BTS SIO 1): Conception et mise en place.<br>- 2 Mois de Test: Processus rigoureux pour la stabilité.<br>- 1 Semaine Correction des Bugs: Réponse rapide.<br>- 4 Mois d\'Utilisation: Validation et ajustements.<br>- 5 Semaines (Stage BTS SIO 2): Amélioration du site.<br><br><br>🔄 Méthodologie Agile :<br><br>Le projet a suivi la méthodologie agile, m\'adaptant continuellement aux besoins évolutifs. Cette approche dynamique améliore notre gestion des imprévus.<br><br><br>🛠️ Compétences Techniques :<br><br>L\'utilisation de HTML, CSS, PHP et JS a été essentielle. La base de données assure une gestion fluide des informations critiques.<br><br><br>📈 Évolution et Améliorations :<br><br>Suite à un retour en janvier 2024, j\'ai modifié et amélioré les modules, répondant aux besoins changeants de l\'équipe. Cette expérience a perfectionné mes compétences techniques.<br><br><br>🌐 Bilan Personnel :<br><br>Ce projet va au-delà de la réalisation technique. Il a permis d\'appliquer la méthode agile, d\'affiner mes compétences et de démontrer ma capacité à gérer des projets complexes tout en restant adaptable.'
+                        }
+                    ],
+                    projetsGroupe: [
+                        {
+                            id: 4,
+                            titre: "Projet de groupe pour l'épeuvre E5 de notre BTS",
+                            description: "Projet de groupe pour l'épeuvre E5 de notre BTS"
+                        }
+                    ],
+                    projetsFuturs: [
+                        {
+                            id: 6,
+                            titre: 'Site vitrine un apiculteur local',
+                            description: 'Je vais créer un site vitrine pour un apiculteur 🐝 afin de partager sa passion pour le miel 🍯, utilisant HTML, CSS, JS et PHP pour une expérience interactive et enrichissante !'
+                        },
+                        {
+                            id: 7,
+                            titre: 'Site vitrine pour une couturière local',
+                            description: "Je vais créer un site vitrine pour une couturière afin de présenter son travail, sa méthode et ses tarifs. Ce projet sera développé en HTML, CSS, JavaScript et PHP pour offrir une expérience interactive et informative aux visiteurs. 🧵✨"
+                        },
+                        {
+                            id: 8,
+                            titre: 'Site vitrine pour une cirier local',
+                            description: "Je vais construire un site vitrine pour une cirier 🕯️ afin de montrer son processus de travail, ses produits et leurs prix 💰. J'utiliserai HTML, CSS, JS et PHP pour une expérience utilisateur fluide et interactive 🖥️." 
+                        }
+                    ],
+                    projetSelectionneId: null
+                },
+                methods: {
+                    afficherDescription(id) {
+                        this.projetSelectionneId = id;
+                    }
+                }
+            });
+        </script>
+        <div class="mt-16">
+
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white p-4 fixed bottom-0 w-full">
+        <div class="container mx-auto flex justify-between">
+            <!-- Onglet Contacts -->
+            <div class="flex items-center space-x-4">
+                <!-- Image GitHub -->
+                <a href="https://github.com/CossiauxVictor" target="_blank">
+                    <img src="image/Github.png" alt="GitHub" class="h-6 w-6 hover:opacity-75">
+                </a>
+    
+                <!-- Image LinkedIn -->
+                <a href="https://www.linkedin.com/in/cossiaux-victor/" target="_blank">
+                    <img src="image/Linkdin.png" alt="LinkedIn" class="h-6 w-6 hover:opacity-75">
+                </a>
+    
+                <!-- E-mail -->
+                <a href="mailto:victor.cossiaux.p@gmail.com" class="hover:opacity-75">victor.cossiaux.p@gmail.com</a>
+            </div>
+    
+            <!-- Onglet Mentions Légales -->
+            <div>
+                <a href="mentions-legales.html" class="hover:opacity-75">Mentions Légales</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
